@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings – Starry</title>
+
+    <link rel="shortcut icon" href="star-favicon.webp" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="theme.js"></script>
+<script src="index.js" defer></script>
+</head>
+
+<body>
+    <!-- Background -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
+    <!-- Nav -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-item">
+                <i data-lucide="home"></i>
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="games.html" class="nav-item">
+                <i data-lucide="gamepad-2"></i>
+                <span>Games</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="settings">
+        <h1>Appearance</h1>
+
+        <div class="theme-grid">
+            <button class="theme-btn" data-theme="blue">Default (Ocean)</button>
+            <button class="theme-btn" data-theme="purple">Nebula</button>
+            <button class="theme-btn" data-theme="green">Forest</button>
+            <button class="theme-btn" data-theme="red">Wine</button>
+            <button class="theme-btn" data-theme="amoled">Dark</button>
+        </div>
+    </main>
+
+    <script src="settings.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

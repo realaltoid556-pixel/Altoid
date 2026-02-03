@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games - Starry</title>
+
+    <link rel="shortcut icon" href="star-favicon.webp" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="theme.js"></script>
+<script src="index.js" defer></script>
+
+</head>
+
+<body>
+    <!-- Background -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-item">
+                <i data-lucide="home"></i>
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="games.html" class="nav-item active">
+                <i data-lucide="gamepad-2"></i>
+                <span>Games</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <div id="games">
+            <!-- games.js injects here -->
+        </div>
+    </main>
+
+    <script src="games.js" defer></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

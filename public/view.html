@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starry Viewer</title>
+    <link rel="stylesheet" href="index.css" />
+    <style>
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background: #020617; 
+        }
+        /* Hidden UI that appears on hover/interaction */
+        .controls {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        body:hover .controls { opacity: 1; }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        #sj-frame { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+    </style>
+    <!-- Same scripts as search.html -->
+    <script src="/scram/scramjet.all.js"></script>
+    <script src="/baremux/index.js"></script>
+</head>
+<body>
+    <div class="controls">
+        <a href="games.html" class="control-btn">Back to Library</a>
+        <button onclick="location.reload()" class="control-btn">Reload</button>
+        <button onclick="toggleFullscreen()" class="control-btn">Fullscreen</button>
+    </div>
+
+    <script>
+        const { ScramjetController } = $scramjetLoadController();
+        const scramjet = new ScramjetController({
+            files: {
+                wasm: "/scram/scramjet.wasm.wasm",
+                all: "/scram/scramjet.all.js",
+                sync: "/scram/scramjet.sync.js",
+            },
+        });
+        scramjet.init();
+
+        const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+
+        async function loadGame() {
+            const params = new URLSearchParams(window.location.search);
+            const url = params.get('url');
+
+            if (!url) {
+                window.location.href = "games.html";
+                return;
+            }
+
+            let wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+            
+            if ((await connection.getTransport()) !== "/libcurl/index.mjs") {
+                await connection.setTransport("/libcurl/index.mjs", [{ websocket: wispUrl }]);
+            }
+
+            const frame = scramjet.createFrame();
+            frame.frame.id = "sj-frame";
+            document.body.appendChild(frame.frame);
+            frame.go(url);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        window.onload = loadGame;
+    </script>
+</body>
+</html>

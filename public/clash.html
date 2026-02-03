@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clash Royale</title>
+
+    <link rel="stylesheet" href="index.css" />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #020617;
+        }
+
+        /* Floating controls */
+        .controls {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        body:hover .controls {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <a href="games.html" class="control-btn">Back to Library</a>
+        <button onclick="location.reload()" class="control-btn">Reload</button>
+        <button onclick="toggleFullscreen()" class="control-btn">Fullscreen</button>
+    </div>
+
+    <iframe
+        src="https://cloudmoonapp.pages.dev/game/com.supercell.clashroyale/?from=list"
+        allowfullscreen
+        referrerpolicy="no-referrer"
+    ></iframe>
+
+    <script>
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen?.();
+            }
+        }
+    </script>
+
+</body>
+</html>
